@@ -37,6 +37,6 @@ var tabulate = function(data, columns) {
 
 // Load CSV data and call the tabulate function
 d3.csv('../data/mergeddata.csv', function(data) {
-    var columns = ['richtlijn', 'Content.projecttitel'];
+    var columns = ['onderzoekslijn', 'Content.projecttitel'];
     tabulate(data, columns);
 });
