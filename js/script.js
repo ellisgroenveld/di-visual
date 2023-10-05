@@ -68,7 +68,13 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("cx", 20)
         .attr("cy", 20)
         .attr("fill", "lightblue")
-        .attr("stroke", "black");
+        .attr("stroke", "black")
+        .on("click", function(event, d) {
+            console.log("click");
+        });
+
+
+
 
 
 
