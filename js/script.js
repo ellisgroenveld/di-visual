@@ -45,9 +45,9 @@ d3.csv('../data/mergeddata.csv', function(data) {
 document.addEventListener("DOMContentLoaded", function() {
     const svg = d3.select("#cog-svg");
 
-    const centerX = 200;
-    const centerY = 200;
-    const outerRadius = 90;
+    const centerX = 120;
+    const centerY = 120;
+    const outerRadius = 40;
     const innerRadius = 60;
     const numTeeth = 20;
     const toothHeight = 20;
@@ -55,39 +55,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const toothAngle = (2 * Math.PI) / numTeeth;
 
     const cogGroup = svg.append("g")
-        .attr("transform", `translate(${centerX}, ${centerY})`);
+        .attr("transform", `translate(${centerX}, ${centerY})`)
 
-    for (let i = 0; i < numTeeth; i++) {
-        const angle = i * toothAngle;
-        const x1 = outerRadius * Math.cos(angle);
-        const y1 = outerRadius * Math.sin(angle);
-        const x2 = (outerRadius + toothHeight) * Math.cos(angle);
-        const y2 = (outerRadius + toothHeight) * Math.sin(angle);
+    cogGroup.append("image")
+        .attr("xlink:href", "../img/cogwheel.svg")
+        .attr("width", "250")
+        .attr("x", -105)
+        .attr("y", -105);
 
-        cogGroup.append("line")
-            .attr("x1", x1)
-            .attr("y1", y1)
-            .attr("x2", x2)
-            .attr("y2", y2)
-            .attr("stroke", "black");
-    }
-
-    // Add inner circle
     cogGroup.append("circle")
-        .attr("cx", )
-        .attr("cy", 0)
-        .attr("r", innerRadius)
-        .attr("fill", "white");
+        .attr("r", 23.5)
+        .attr("cx", 20)
+        .attr("cy", 20)
+        .attr("fill", "lightblue")
+        .attr("stroke", "black");
 
-    // Define the positions for icons
+
     const iconPositions = [
-        { x: 0, y: -outerRadius - 30 }, // Top
-        { x: outerRadius + 30, y: 0 }, // Right
-        { x: 0, y: outerRadius + 30 }, // Bottom
-        { x: -outerRadius - 30, y: 0 } // Left
+        { x: 0, y: -outerRadius - 30 },
+        { x: outerRadius + 30, y: 0 },
+        { x: 0, y: outerRadius + 30 },
+        { x: -outerRadius - 30, y: 0 }
     ];
 
-    // Create icons
     const icons = [
         "../img/ai.svg",
         "../img/healthcare.svg",
@@ -95,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function() {
         "../img/other.svg"
     ];
 
-    // Add icons to the corners of the cog
     for (let i = 0; i < 4; i++) {
         const icon = icons[i];
         const position = iconPositions[i];
@@ -107,5 +96,4 @@ document.addEventListener("DOMContentLoaded", function() {
             .attr("width", 40)
             .attr("height", 40);
     }
-
 });
