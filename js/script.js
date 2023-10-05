@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("stroke", "black");
 
 
+
     const iconPositions = [
         { x: 0, y: -outerRadius - 30 },
         { x: outerRadius + 30, y: 0 },
