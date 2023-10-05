@@ -44,10 +44,13 @@ d3.csv('../data/mergeddata.csv', function(data) {
 // script.js
 document.addEventListener("DOMContentLoaded", function() {
     const svg = d3.select("#cog-svg");
+    const overlay = document.getElementById("overlay");
+    const closeButton = document.getElementById("close-button");
+
 
     const centerX = 120;
-    const centerY = 120;
-    const outerRadius = 40;
+    const centerY = 240;
+    const outerRadius = 30;
     const innerRadius = 60;
     const numTeeth = 20;
     const toothHeight = 20;
@@ -71,18 +74,21 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("stroke", "black")
         .on("click", function(event, d) {
             console.log("click");
+            overlay.style.display = "flex";;
         });
 
 
-
-
+    closeButton.addEventListener("click", function() {
+        // Close the overlay when the close button is clicked
+        overlay.style.display = "none"; // Hide the overlay
+    });
 
 
     const iconPositions = [
-        { x: 0, y: -outerRadius - 30 },
-        { x: outerRadius + 30, y: 0 },
-        { x: 0, y: outerRadius + 30 },
-        { x: -outerRadius - 30, y: 0 }
+        { x: 20, y: -outerRadius - 30 },
+        { x: outerRadius + 30, y: 20 },
+        { x: -20, y: outerRadius + 30 },
+        { x: -outerRadius - 30, y: -20 }
     ];
 
     const icons = [
@@ -102,5 +108,28 @@ document.addEventListener("DOMContentLoaded", function() {
             .attr("xlink:href", icon)
             .attr("width", 40)
             .attr("height", 40);
+
+        cogGroup.append("rect")
+            .attr("x", position.x)
+            .attr("y", position.y - 40)
+            .attr("height", 50)
+            .attr("width", 10)
+            .attr("fill", "blue");
+
+        cogGroup.append("rect")
+            .attr("x", position.x + 15)
+            .attr("y", position.y - 90)
+            .attr("height", 100)
+            .attr("width", 10)
+            .attr("fill", "orange");
+
+        cogGroup.append("rect")
+            .attr("x", position.x + 30)
+            .attr("y", position.y - 140)
+            .attr("height", 150)
+            .attr("width", 10)
+            .attr("fill", "green");
+
+
     }
 });

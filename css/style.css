@@ -1,3 +1,35 @@
+/* styles.css */
+
 body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
     background-image: url("../img/background.png");
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* White with some transparency */
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.content {
+    /* Style your content within the overlay here */
 }
