@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     const iconPositions = [
-        { x: 20, y: -outerRadius - 30 },
+        { x: 25, y: -outerRadius - 30 },
         { x: outerRadius + 30, y: 20 },
         { x: -20, y: outerRadius + 30 },
         { x: -outerRadius - 30, y: -20 }
@@ -131,5 +131,14 @@ document.addEventListener("DOMContentLoaded", function() {
             .attr("fill", "green");
 
 
+
+
     }
+
+    cogGroup.append("image")
+        .attr("xlink:href", "../img/finished.svg")
+        .attr("width", "150")
+        .attr("y", "-75")
+        .attr("x", "180");
+
 });
