@@ -61,15 +61,41 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("transform", `translate(${centerX}, ${centerY})`)
 
     cogGroup.append("image")
-        .attr("xlink:href", "../img/cogwheel.svg")
-        .attr("width", "250")
+        .attr("xlink:href", "../img/Cog2.svg")
+        .attr("width", "150")
+        .attr("x", -140)
+        .attr("y", -140);
+
+
+    cogGroup.append("image")
+        .attr("xlink:href", "../img/Cog1.svg")
+        .attr("width", "300")
         .attr("x", -105)
         .attr("y", -105);
 
-    cogGroup.append("circle")
-        .attr("r", 23.5)
-        .attr("cx", 20)
-        .attr("cy", 20)
+    cogGroup.append("ellipse")
+        .attr("rx", 23.5)
+        .attr("ry", 18)
+        .attr("cx", 45)
+        .attr("cy", 0)
+        .attr("fill", "azure")
+        .attr("stroke", "none")
+
+
+
+    cogGroup.append("rect")
+        .attr("x", 21)
+        .attr("y", -10)
+        .attr("height", 10)
+        .attr("width", 48)
+        .attr("fill", "azure")
+        .attr("stroke", "none");
+
+    cogGroup.append("ellipse")
+        .attr("rx", 23.5)
+        .attr("ry", 18)
+        .attr("cx", 45)
+        .attr("cy", -10)
         .attr("fill", "lightblue")
         .attr("stroke", "black")
         .on("click", function(event, d) {
@@ -85,20 +111,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     const iconPositions = [
-        { x: 25, y: -outerRadius - 30 },
-        { x: outerRadius + 30, y: 20 },
-        { x: -20, y: outerRadius + 30 },
-        { x: -outerRadius - 30, y: -20 }
+        { x: 25, y: -70 },
+        { x: 90, y: 10 },
+        { x: -40, y: 10 }
     ];
 
     const icons = [
-        "../img/ai.svg",
-        "../img/healthcare.svg",
-        "../img/industry.svg",
-        "../img/other.svg"
+        "../img/aiskewed.svg",
+        "../img/healthcareskewed.svg",
+        "../img/industryskewed.svg"
     ];
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
         const icon = icons[i];
         const position = iconPositions[i];
 
@@ -136,9 +160,47 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     cogGroup.append("image")
-        .attr("xlink:href", "../img/finished.svg")
+        .attr("xlink:href", "../img/finished3d.svg")
         .attr("width", "150")
         .attr("y", "-75")
-        .attr("x", "180");
+        .attr("x", "300");
+
+
+    for (let i = 0; i < 3; i++) {
+        const icon = icons[i];
+        const position = iconPositions[i];
+
+        cogGroup.append("image")
+            .attr("x", position.x * 0.6 + 345)
+            .attr("y", position.y * 0.6 - 20)
+            .attr("xlink:href", icon)
+            .attr("width", 40)
+            .attr("height", 40);
+
+        cogGroup.append("rect")
+            .attr("x", position.x * 0.6 + 345)
+            .attr("y", position.y * 0.6 - 30)
+            .attr("height", 10)
+            .attr("width", 10)
+            .attr("fill", "blue");
+
+        cogGroup.append("rect")
+            .attr("x", position.x * 0.6 + 345 + 15)
+            .attr("y", position.y * 0.6 - 40)
+            .attr("height", 20)
+            .attr("width", 10)
+            .attr("fill", "orange");
+
+        cogGroup.append("rect")
+            .attr("x", position.x * 0.6 + 345 + 30)
+            .attr("y", position.y * 0.6 - 50)
+            .attr("height", 30)
+            .attr("width", 10)
+            .attr("fill", "green");
+
+
+
+
+    }
 
 });
