@@ -1,46 +1,78 @@
-const circle1 = document.getElementById('circle1');
-const circle2 = document.getElementById('circle2');
-const overlay1 = document.getElementById('overlay1');
-const overlay2 = document.getElementById('overlay2');
-const square1 = document.getElementById('square1');
-const square2 = document.getElementById('square2');
+// Create an array to store shape data
+const shapeData = [
+    { id: 1, type: 'circle', color: 'blue' },
+    { id: 2, type: 'circle', color: 'green' },
+    { id: 3, type: 'circle', color: 'red' },
+    { id: 4, type: 'circle', color: 'orange' },
+    { id: 5, type: 'circle', color: 'purple' },
+];
 
-circle1.addEventListener('click', () => {
-    overlay1.style.display = 'block';
-});
+// Create the main SVG container
+const svg = d3.select('#main-svg');
 
-circle2.addEventListener('click', () => {
-    overlay2.style.display = 'block';
-});
-
-square1.addEventListener('click', () => {
-    overlay1.style.display = 'none';
-});
-
-square2.addEventListener('click', () => {
-    overlay2.style.display = 'none';
-});
-
-
-const circlesContainer = document.getElementById('circles-container');
-const dataArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // Your data array here
-
-function createCircles(array) {
-    const numCircles = array.length;
-
-    // Clear existing circles
-    circlesContainer.innerHTML = '';
-
-    for (let i = 0; i < numCircles; i++) {
-        const circle = document.createElement('div');
-        circle.classList.add('circle');
-
-        if (i > 10) {
-            circle.style.marginRight = '10px'; // Add space between two stacks
+// Create shapes on the main screen
+svg
+    .selectAll('.shape')
+    .data(shapeData)
+    .enter()
+    .append('g')
+    .attr('class', 'shape')
+    .attr('transform', (d, i) => `translate(${75 + i * 75}, 150)`)
+    .on('click', (event, d) => {
+        if (d.id <= 3) {
+            openOverlay1();
+        } else {
+            openOverlay3();
         }
+    })
+    .each(function (d) {
+        const shape = d3.select(this);
 
-        circlesContainer.appendChild(circle);
-    }
+        if (d.type === 'circle') {
+            shape
+                .append('circle')
+                .attr('r', 20)
+                .style('fill', d.color);
+        }
+    });
+
+// Create overlay elements in the SVG
+const overlay1 = svg.append('g').attr('id', 'overlay1').style('display', 'none');
+const overlay2 = svg.append('g').attr('id', 'overlay2').style('display', 'none');
+const overlay3 = svg.append('g').attr('id', 'overlay3').style('display', 'none');
+const overlay4 = svg.append('g').attr('id', 'overlay4').style('display', 'none');
+
+function openOverlay1() {
+    overlay1.style('display', 'block');
+    overlay1.selectAll('.square').on('click', function (event, d) {
+        const squareId = d3.select(this).attr('id');
+        if (squareId === 'square4' || squareId === 'square5' || squareId === 'square6') {
+            overlay1.style('display', 'none');
+        } else {
+            openOverlay2();
+        }
+    });
 }
 
-createCircles(dataArray);
+function openOverlay2() {
+    overlay2.style('display', 'block');
+    overlay2.selectAll('.triangle').on('click', function (event, d) {
+        const triangleId = d3.select(this).attr('id');
+        if (triangleId === 'triangle4') {
+            overlay2.style('display', 'none');
+        } else {
+            openOverlay4();
+        }
+    });
+}
+
+function openOverlay3() {
+    overlay3.style('display', 'block');
+    overlay3.select('#closeButton').on('click', () => {
+        overlay3.style('display', 'none');
+    });
+}
+
+function openOverlay4() {
+    overlay4.style('display', 'block');
+}
