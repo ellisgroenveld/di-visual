@@ -1,8 +1,10 @@
+/* Existing styles */
+
 .main-screen {
     position: relative;
 }
 
-#overlay {
+.overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -22,29 +24,81 @@
     border: 1px solid #ccc;
 }
 
-#circle {
+.circle {
     cursor: pointer;
-    animation: pulse 2s infinite;
-    transform-origin: center;
 }
 
-#square {
+.overlay-content rect {
     cursor: pointer;
-    animation: pulse 2s infinite;
-    transform-origin: center;
 }
 
 @keyframes pulse {
     0% {
         transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 0, 255, 0.7);
     }
     50% {
         transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(0, 0, 255, 0.7);
     }
     100% {
         transform: scale(1);
-        box-shadow: 0 0 10px rgba(0, 0, 255, 0.7);
     }
+}
+
+
+/* Additional styles for the second circle */
+
+#circle1 {
+    fill: red;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    transform-origin: center;
+}
+
+#circle2 {
+    fill: green;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    transform-origin: center;
+}
+
+
+/* Additional styles for the second overlay and square */
+
+#overlay2 {
+    display: none;
+}
+
+#overlay-content2 {
+    background: white;
+}
+
+#square1 {
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+#square2 {
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+.main-screen {
+    position: relative;
+}
+
+.circles-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: blue;
+    border-radius: 50%;
 }
