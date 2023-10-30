@@ -7,28 +7,52 @@
 
 <body>
     <div class="main-screen" id="main-screen">
-        <svg id="main-svg" width="400" height="300">
+        <svg id="main-svg" width="1000" height="300">
+            <!-- Hier is weergave niveau 1 -->
             <circle id="circle1" class="circle" cx="150" cy="150" r="50" fill="blue" />
-            <circle id="circle2" class="circle" cx="250" cy="150" r="50" fill="green" />
+            <circle id="circle2" class="circle" cx="300" cy="150" r="50" fill="green" />
+            <circle id="circle3" class="circle" cx="450" cy="150" r="50" fill="blue" />
+            <circle id="circle4" class="circle" cx="600" cy="150" r="50" fill="green" />
+            <circle id="circle5" class="circle" cx="750" cy="150" r="50" fill="blue" />
         </svg>
     </div>
     <div class="overlay" id="overlay1">
         <div class="overlay-content" id="overlay-content1">
-            <svg id="overlay-svg1" width="200" height="200">
-                <rect id="square1" x="50" y="50" width="100" height="100" fill="red" />
+            <svg id="overlay-svg1" height="1000" width="1000" viewBox="0 0 1000 1000">
+                <!-- Hier is weergave niveau 2 -->
+                <rect id="square1" class="square" x="50" y="50" width="100" height="100" fill="red" />
+                <rect id="square2" class="square" x="200" y="50" width="100" height="100" fill="orange" />
             </svg>
         </div>
     </div>
     <div class="overlay" id="overlay2">
         <div class="overlay-content" id="overlay-content2">
-            <svg id="overlay-svg2" width="200" height="200">
-                <rect id="square2" x="50" y="50" width="100" height="100" fill="orange" />
+            <svg id="overlay-svg2" height="1000" width="1000" viewBox="0 0 1000 1000">>
+                <!-- Hier is weergave niveau 3 -->
+                <polygon id="triangle1" class="triangle" points="0,150 50,50 100,150" fill="blue" />
+                <polygon id="triangle2" class="triangle" points="150,150 200,50 250,150" fill="green" />
             </svg>
         </div>
     </div>
-
-    <div class="circles-container" id="circles-container">
-        <!-- Circles will be generated here using JavaScript -->
+    <div class="overlay" id="overlay3">
+        <div class="overlay-content" id="overlay-content2">
+            <svg id="overlay-svg3" height="1000" width="1000" viewBox="0 0 1000 1000">>
+                <!-- Hier is de weergave van alle projecten in een lijst niet in detail -->
+                <circle id="close1" class="circle" cx="150" cy="150" r="50" fill="red" />
+            </svg>
+        </div>
+    </div>
+    <div class="overlay" id="overlay4">
+        <div class="overlay-content" id="overlay-content2">
+            <svg id="overlay-svg4" width="200" height="200">
+                <!-- Hier is de weergave van een enkel project in detail -->
+                <g id="close2" class="close">
+                    <rect width="24" height="24" fill="white"/>
+                    <path d="M7 17L16.8995 7.10051" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 7.00001L16.8995 16.8995" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+            </svg>
+        </div>
     </div>
 </body>
 <script src="js/script.js"></script>
