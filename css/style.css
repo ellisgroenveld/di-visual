@@ -1,7 +1,9 @@
 /* Existing styles */
 
 .main-screen {
-    position: relative;
+    position: absolute;
+    background-image: url("../img/background.png");
+    background-position: 0 0;
 }
 
 .overlay {
@@ -19,7 +21,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background-image: url("../img/background.png");
+    background-position: 0 0;
     padding: 10px;
     border: 1px solid #ccc;
 }
@@ -37,10 +40,10 @@
         transform: scale(1);
     }
     50% {
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
     100% {
-        transform: scale(1);
+        transform: scale();
     }
 }
 
