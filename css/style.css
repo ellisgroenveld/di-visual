@@ -47,37 +47,18 @@
 
 /* Additional styles for the second circle */
 
-#circle1 {
-    fill: red;
+.circle {
     cursor: pointer;
     animation: pulse 2s infinite;
     transform-origin: center;
 }
 
-#circle2 {
-    fill: green;
-    cursor: pointer;
-    animation: pulse 2s infinite;
-    transform-origin: center;
-}
-
-
-/* Additional styles for the second overlay and square */
-
-#overlay2 {
-    display: none;
-}
-
-#overlay-content2 {
-    background: white;
-}
-
-#square1 {
+.square {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
 
-#square2 {
+.triangle {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
