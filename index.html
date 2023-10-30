@@ -2,41 +2,50 @@
 <html>
 
 <head>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <div class="main-screen" id="main-screen">
-        <svg id="main-svg" width="1000" height="300">
+        <svg id="main-svg" width="1900" height="1000">
             <!-- Hier is weergave niveau 1 -->
-            <circle id="circle1" class="circle" cx="150" cy="150" r="50" fill="blue" />
-            <circle id="circle2" class="circle" cx="300" cy="150" r="50" fill="green" />
-            <circle id="circle3" class="circle" cx="450" cy="150" r="50" fill="blue" />
-            <circle id="circle4" class="circle" cx="600" cy="150" r="50" fill="green" />
-            <circle id="circle5" class="circle" cx="750" cy="150" r="50" fill="blue" />
+            <circle id="circlenav1" class="circle" cx="150" cy="150" r="50" fill="blue" />
+            <circle id="circlenav2" class="circle" cx="300" cy="150" r="50" fill="blue" />
+            <circle id="circlenav3" class="circle" cx="450" cy="150" r="50" fill="blue" />
+            <circle id="circlelist1" class="circle" cx="600" cy="150" r="50" fill="green" />
+            <circle id="circlelist2" class="circle" cx="750" cy="150" r="50" fill="green" />
         </svg>
     </div>
     <div class="overlay" id="overlay1">
         <div class="overlay-content" id="overlay-content1">
-            <svg id="overlay-svg1" height="1000" width="1000" viewBox="0 0 1000 1000">
+            <svg id="overlay-svg1" height="1000" width="1900" viewBox="0 0 1900 1000">
                 <!-- Hier is weergave niveau 2 -->
-                <rect id="square1" class="square" x="50" y="50" width="100" height="100" fill="red" />
-                <rect id="square2" class="square" x="200" y="50" width="100" height="100" fill="orange" />
+                <rect id="squarenav1" class="square" x="50" y="50" width="100" height="100" fill="blue" />
+                <rect id="squarenav2" class="square" x="200" y="50" width="100" height="100" fill="blue" />
+                <rect id="squarenav3" class="square" x="350" y="50" width="100" height="100" fill="blue" />
+                <rect id="squarenav4" class="square" x="500" y="50" width="100" height="100" fill="blue" />
+                <rect id="squareback" class="square" x="650" y="50" width="100" height="100" fill="red" />
+                <rect id="squarelist1" class="square" x="800" y="50" width="100" height="100" fill="green" />
+                <rect id="squarelist2" class="square" x="950" y="50" width="100" height="100" fill="green" />
             </svg>
         </div>
     </div>
     <div class="overlay" id="overlay2">
         <div class="overlay-content" id="overlay-content2">
-            <svg id="overlay-svg2" height="1000" width="1000" viewBox="0 0 1000 1000">>
+            <svg id="overlay-svg2" height="1000" width="1900" viewBox="0 0 1900 1000">>
                 <!-- Hier is weergave niveau 3 -->
-                <polygon id="triangle1" class="triangle" points="0,150 50,50 100,150" fill="blue" />
-                <polygon id="triangle2" class="triangle" points="150,150 200,50 250,150" fill="green" />
+                <polygon id="trianglelist1" class="triangle" points="0,150 50,50 100,150" fill="green" />
+                <polygon id="trianglelist2" class="triangle" points="150,150 200,50 250,150" fill="green" />
+                <polygon id="triangleback" class="triangle" points="300,150 350,50 400,150" fill="red" />
             </svg>
         </div>
     </div>
     <div class="overlay" id="overlay3">
         <div class="overlay-content" id="overlay-content2">
-            <svg id="overlay-svg3" height="1000" width="1000" viewBox="0 0 1000 1000">>
+            <svg id="overlay-svg3" height="1000" width="1900" viewBox="0 0 1900 1000">>
                 <!-- Hier is de weergave van alle projecten in een lijst niet in detail -->
                 <circle id="close1" class="circle" cx="150" cy="150" r="50" fill="red" />
             </svg>
