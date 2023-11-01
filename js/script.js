@@ -137,6 +137,16 @@ circlelist1.addEventListener("click", () => {
 });
 circlelist2.addEventListener("click", () => {
   overlay3.style.display = "block";
+  dataRetrieveFunction(0, 0, "yes")
+    .then(function (data) {
+      // Loop through the retrieved data and create project details for each project
+      data.forEach(function (projectData) {
+        createProjectDetails(projectData);
+      });
+    })
+    .catch(function (error) {
+      console.error("Error loading data:", error);
+    });
 });
 
 squarenav1.addEventListener("click", () => {
