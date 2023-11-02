@@ -70,13 +70,18 @@ function createProjectDetails(projectData, index) {
         .attr("ry", 10);
 
     const text = svg.append("text").attr("y", 10);
+    const textMaxLength = 30
+    const projectTitle = projectData.projecttitel.length > textMaxLength ?
+        projectData.projecttitel.substring(0, textMaxLength) + "..." :
+        projectData.projecttitel;
 
     text
         .append("tspan")
         .attr("x", 20)
         .attr("dy", "1.2em")
         .attr("font-size", 24)
-        .text(projectData.projecttitel);
+        .text(projectTitle)
+        .attr("class", "ellipsis-text");
 
     text
         .append("tspan")
@@ -105,6 +110,8 @@ function createProjectDetails(projectData, index) {
         .attr("dy", "1.2em")
         .attr("font-size", 18)
         .text(projectData.onderzoekslijn);
+
+    return y;
 }
 
 function contentGrid(onderzoekslijnfilter, onderwijsfilter, afgerondfilter) {
@@ -112,16 +119,18 @@ function contentGrid(onderzoekslijnfilter, onderwijsfilter, afgerondfilter) {
         .then(function(data) {
             // Loop through the retrieved data and create project details for each project
             console.log(data);
-            heightcalc = data.length;
-            height = 75 * heightcalc + 1000;
             const svg = d3
                 .select("#overlay-svg3")
+            svg.selectAll("g").remove();
+            let maxy = 0;
+            data.forEach(function(projectData, index) {
+                returny = createProjectDetails(projectData, index);
+                console.log(returny)
+            });
+            const height = returny + 300;
+            svg
                 .attr("height", height)
                 .attr("viewBox", "0 0 1900 " + height.toString());
-            svg.selectAll("g").remove();
-            data.forEach(function(projectData, index) {
-                createProjectDetails(projectData, index);
-            });
 
 
         })
@@ -130,6 +139,23 @@ function contentGrid(onderzoekslijnfilter, onderwijsfilter, afgerondfilter) {
         });
 }
 
+function cogChart(onderzoekslijnfilter, onderwijsfilter, afgerondfilter, circleGroup, xValue, yValue) {
+    dataRetrieveFunction(onderzoekslijnfilter, onderwijsfilter, afgerondfilter).then((filteredData) => {
+        const data = filteredData.length; // Get the number of entries in filteredData
+        circleGroup.selectAll("*").remove();
+        const circleRadius = 20;
+        const circleSpacing = 10;
+        const circles = circleGroup
+            .selectAll("circle")
+            .data(d3.range(data))
+            .enter()
+            .append("circle")
+            .attr("cx", xValue)
+            .attr("cy", (d, i) => yValue + i * (circleRadius * 2 + circleSpacing))
+            .attr("r", circleRadius)
+            .style("fill", "blue");
+    });
+}
 
 const circlenav1 = document.getElementById("circlenav1");
 const circlenav2 = document.getElementById("circlenav2");
@@ -156,6 +182,47 @@ const homeButtons = Array.from(document.getElementsByClassName("home"));
 let onderzoekslijnfilter = 0;
 let onderwijsfilter = 0;
 let afgerondfilter = 0;
+let onderzoekerfilter = 0;
+
+const circleRadius = 20;
+const circleSpacing = 10;
+const cxValue1 = d3.select("#circlenav1").attr("cx");
+const cyValue1 = Number(d3.select("#circlenav1").attr("cy")) + 100;
+const cxValue2 = d3.select("#circlenav2").attr("cx");
+const cyValue2 = Number(d3.select("#circlenav2").attr("cy")) + 100;
+const cxValue3 = d3.select("#circlenav3").attr("cx");
+const cyValue3 = Number(d3.select("#circlenav3").attr("cy")) + 100;
+const sxValue1 = d3.select("#squarenav1").attr("x");
+const syValue1 = Number(d3.select("#squarenav1").attr("y")) + 100;
+const sxValue2 = d3.select("#squarenav2").attr("x");
+const syValue2 = Number(d3.select("#squarenav2").attr("y")) + 100;
+const sxValue3 = d3.select("#squarenav3").attr("x");
+const syValue3 = Number(d3.select("#squarenav3").attr("y")) + 100;
+const sxValue4 = d3.select("#squarenav4").attr("x");
+const syValue4 = Number(d3.select("#squarenav4").attr("y")) + 100;
+const txValue1 = d3.select("#trianglelist1").attr("x");
+const tyValue1 = Number(d3.select("#trianglelist1").attr("y")) + 100;
+const txValue2 = d3.select("#trianglelist2").attr("x");
+const tyValue2 = Number(d3.select("#trianglelist2").attr("y")) + 100;
+
+const mainsvg = d3.select("#main-svg");
+const overlay1svg = d3.select("#overlay-svg1");
+const overlay2svg = d3.select("#overlay-svg2");
+const circleGroup1 = mainsvg.append("g");
+const circleGroup2 = mainsvg.append("g");
+const circleGroup3 = mainsvg.append("g");
+const squareGroup1 = overlay1svg.append("g");
+const squareGroup2 = overlay1svg.append("g");
+const squareGroup3 = overlay1svg.append("g");
+const squareGroup4 = overlay1svg.append("g");
+const triangleGroup1 = overlay2svg.append("g");
+const triangleGroup2 = overlay2svg.append("g");
+
+
+cogChart("AI in de zorg", 0, 0, circleGroup1, cxValue1, cyValue1);
+cogChart("AI in de industrie", 0, 0, circleGroup2, cxValue2, cyValue2);
+cogChart("Verantwoorde AI", 0, 0, circleGroup3, cxValue3, cyValue3);
+
 
 homeButtons.forEach((homebutton) => {
     homebutton.addEventListener("click", () => {
@@ -171,14 +238,26 @@ homeButtons.forEach((homebutton) => {
 
 circlenav1.addEventListener("click", () => {
     onderzoekslijnfilter = "AI in de zorg";
+    cogChart(onderzoekslijnfilter, "minor", 0, squareGroup1, sxValue1, syValue1);
+    cogChart(onderzoekslijnfilter, "stage", 0, squareGroup2, sxValue2, syValue2);
+    cogChart(onderzoekslijnfilter, "afstuderen", 0, squareGroup3, sxValue3, syValue3);
+    cogChart(onderzoekslijnfilter, "NULL", 0, squareGroup4, sxValue4, syValue4);
     overlay1.style.display = "block";
 });
 circlenav2.addEventListener("click", () => {
     onderzoekslijnfilter = "AI in de industrie";
+    cogChart(onderzoekslijnfilter, "minor", 0, squareGroup1, sxValue1, syValue1);
+    cogChart(onderzoekslijnfilter, "stage", 0, squareGroup2, sxValue2, syValue2);
+    cogChart(onderzoekslijnfilter, "afstuderen", 0, squareGroup3, sxValue3, syValue3);
+    cogChart(onderzoekslijnfilter, "NULL", 0, squareGroup4, sxValue4, syValue4);
     overlay1.style.display = "block";
 });
 circlenav3.addEventListener("click", () => {
     onderzoekslijnfilter = "Verantwoorde AI";
+    cogChart(onderzoekslijnfilter, "minor", 0, squareGroup1, sxValue1, syValue1);
+    cogChart(onderzoekslijnfilter, "stage", 0, squareGroup2, sxValue2, syValue2);
+    cogChart(onderzoekslijnfilter, "afstuderen", 0, squareGroup3, sxValue3, syValue3);
+    cogChart(onderzoekslijnfilter, "NULL", 0, squareGroup4, sxValue4, syValue4);
     overlay1.style.display = "block";
 });
 circlelist1.addEventListener("click", () => {
@@ -194,21 +273,29 @@ circlelist2.addEventListener("click", () => {
 
 squarenav1.addEventListener("click", () => {
     onderwijsfilter = "minor";
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "no", triangleGroup1, txValue1, tyValue1);
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "yes", triangleGroup2, txValue2, tyValue2);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
 squarenav2.addEventListener("click", () => {
     onderwijsfilter = "stage";
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "no", triangleGroup1, txValue1, tyValue1);
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "yes", triangleGroup2, txValue2, tyValue2);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
 squarenav3.addEventListener("click", () => {
     onderwijsfilter = "afstuderen";
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "no", triangleGroup1, txValue1, tyValue1);
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "yes", triangleGroup2, txValue2, tyValue2);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
 squarenav4.addEventListener("click", () => {
     onderwijsfilter = "NULL";
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "no", triangleGroup1, txValue1, tyValue1);
+    cogChart(onderzoekslijnfilter, onderwijsfilter, "yes", triangleGroup2, txValue2, tyValue2);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
@@ -246,56 +333,4 @@ triangleback.addEventListener("click", () => {
 close1.addEventListener("click", () => {
     afgerondfilter = "";
     overlay3.style.display = "none";
-});
-
-const circleRadius = 20;
-const circleSpacing = 10;
-const cxValue1 = d3.select("#circlenav1").attr("cx");
-const cyValue1 = Number(d3.select("#circlenav1").attr("cy")) + 100;
-const cxValue2 = d3.select("#circlenav2").attr("cx");
-const cyValue2 = Number(d3.select("#circlenav2").attr("cy")) + 100;
-const cxValue3 = d3.select("#circlenav3").attr("cx");
-const cyValue3 = Number(d3.select("#circlenav3").attr("cy")) + 100;
-const svg = d3.select("#main-svg");
-const circleGroup1 = svg.append("g");
-const circleGroup2 = svg.append("g");
-const circleGroup3 = svg.append("g");
-
-dataRetrieveFunction("AI in de zorg", 0, 0).then((filteredData) => {
-    const data = filteredData.length; // Get the number of entries in filteredData
-    const circles = circleGroup1
-        .selectAll("circle")
-        .data(d3.range(data))
-        .enter()
-        .append("circle")
-        .attr("cx", cxValue1)
-        .attr("cy", (d, i) => cyValue1 + i * (circleRadius * 2 + circleSpacing))
-        .attr("r", circleRadius)
-        .style("fill", "blue");
-});
-
-dataRetrieveFunction("AI in de industrie", 0, 0).then((filteredData) => {
-    const data = filteredData.length; // Get the number of entries in filteredData
-    const circles = circleGroup2
-        .selectAll("circle")
-        .data(d3.range(data))
-        .enter()
-        .append("circle")
-        .attr("cx", cxValue2)
-        .attr("cy", (d, i) => cyValue2 + i * (circleRadius * 2 + circleSpacing))
-        .attr("r", circleRadius)
-        .style("fill", "blue");
-});
-
-dataRetrieveFunction("Verantwoorde AI", 0, 0).then((filteredData) => {
-    const data = filteredData.length; // Get the number of entries in filteredData
-    const circles = circleGroup3
-        .selectAll("circle")
-        .data(d3.range(data))
-        .enter()
-        .append("circle")
-        .attr("cx", cxValue3)
-        .attr("cy", (d, i) => cyValue3 + i * (circleRadius * 2 + circleSpacing))
-        .attr("r", circleRadius)
-        .style("fill", "blue");
 });
