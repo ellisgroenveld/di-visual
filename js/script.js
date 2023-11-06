@@ -40,16 +40,52 @@ function dataRetrieveFunction(
                     d.onderzoekerlectoraat.match(onderzoekerfilter)
                 );
             }
-            console.log(filteredData);
             return filteredData;
         })
         .catch(function(error) {
             console.error("Error loading data:", error);
         });
 
-    console.log(returndata);
     return returndata;
 }
+
+function wrapText(text, maxCharactersPerLine, customText) {
+    var words = customText.split(/\s+/);
+    var lines = [];
+    var currentLine = [];
+
+    words.forEach(function(word) {
+        if (currentLine.join(" ").length + word.length <= maxCharactersPerLine) {
+            currentLine.push(word);
+        } else {
+            lines.push(currentLine.join(" "));
+            currentLine = [word];
+        }
+    });
+
+    if (currentLine.length > 0) {
+        lines.push(currentLine.join(" "));
+    }
+
+    lines.forEach(function(line, index) {
+        var xValue = 20; // Default x value
+        var dyValue = "1.2em"; // Default dy value
+
+        if (index === 0) {
+            // Adjust x and dy for the first line to prevent overlapping
+            xValue = 130; // You can adjust this value as needed
+            dyValue = "0"; // No vertical offset for the first line
+        }
+
+        text.append("tspan")
+            .attr("x", xValue)
+            .attr("font-size", 18)
+            .attr("dy", dyValue)
+            .text(line);
+    });
+}
+
+
 
 function createProjectDetails(projectData, index) {
     const svgWidth = 400;
@@ -64,7 +100,9 @@ function createProjectDetails(projectData, index) {
     const svg = d3
         .select("#overlay-svg3")
         .append("g")
-        .attr("transform", `translate(${x}, ${y})`);
+        .attr("transform", `translate(${x}, ${y})`)
+        .attr("class", "clicktodetail")
+        .attr("id", "i" + projectData.id);
 
     svg
         .append("rect")
@@ -134,7 +172,7 @@ function contentGrid(
     onderzoekslijnfilter,
     onderwijsfilter,
     afgerondfilter,
-    onderzoekerfilter
+    onderzoekerfilter, overlay4
 ) {
     dataRetrieveFunction(
             onderzoekslijnfilter,
@@ -144,18 +182,191 @@ function contentGrid(
         )
         .then(function(data) {
             // Loop through the retrieved data and create project details for each project
-            console.log(data);
             const svg = d3.select("#overlay-svg3");
             svg.selectAll("g").remove();
             let maxy = 0;
             data.forEach(function(projectData, index) {
                 returny = createProjectDetails(projectData, index);
-                console.log(returny);
             });
             const height = returny + 300;
             svg
                 .attr("height", height)
                 .attr("viewBox", "0 0 1900 " + height.toString());
+
+            const detailButtons = Array.from(document.getElementsByClassName("clicktodetail"));
+            detailButtons.forEach((detailbutton) => {
+                detailbutton.addEventListener("click", () => {
+                    const usedid = Number(detailbutton.getAttribute("id").slice(1));
+                    overlay4.style.display = "block";
+
+                    d3.csv("/../data/mergeddata.csv")
+                        .then(function(data) {
+                            const filteredData = data.filter((d) => Number(d.id) === usedid);
+                            let projectData = 0;
+                            if (filteredData.length > 0) {
+                                projectData = filteredData[0];
+                            }
+                            d3.select("#overlay-svg4").selectAll("g").remove();
+
+                            const svg = d3
+                                .select("#overlay-svg4")
+                                .append("g")
+                                .attr("class", "clicktodetail")
+                                .attr("transform", `translate(${150}, ${20})`);
+
+                            svg
+                                .append("rect")
+                                .attr("width", 1500)
+                                .attr("height", 900)
+                                .attr("fill", "white")
+                                .attr("stroke", "black")
+                                .attr("stroke-width", 10)
+                                .attr("rx", 10)
+                                .attr("ry", 10);
+
+                            svg
+                                .append("image")
+                                .attr("width", 450)
+                                .attr("href", "../img/placeholder.jpg")
+                                .attr("x", 1000)
+                                .attr("y", 50);
+
+                            const text = svg.append("text").attr("y", 10);
+                            const textMaxLength = 80;
+                            const projectTitle =
+                                projectData.projecttitel.length > textMaxLength ?
+                                projectData.projecttitel.substring(0, textMaxLength) + "..." :
+                                projectData.projecttitel;
+
+                            text
+                                .append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 30)
+                                .text(projectTitle)
+                                .attr("class", "ellipsis-text");
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Projectgroep: ");
+
+                            text.append("tspan")
+                                .text(projectData.naam);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Onderzoeker Lectoraat: ");
+
+                            text
+                                .append("tspan")
+                                .text(projectData.onderzoekerlectoraat);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Opdrachtgever: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.opdrachtgever + " - " + projectData.contactgegevens);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Onderzoekslijn: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.onderzoekslijn);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Type Onderwijs: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.onderwijs);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Locatie: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.locatie);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Event: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.event);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Datum: ")
+
+                            text
+                                .append("tspan")
+                                .text(projectData.datum);
+
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Achtergrond: ");
+
+                            wrapText(text, 120, projectData.achtergrond);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Doelstelling: ");
+
+                            wrapText(text, 120, projectData.doelstelling);
+
+                            text.append("tspan")
+                                .attr("x", 20)
+                                .attr("dy", "1.2em")
+                                .attr("font-size", 18)
+                                .attr("font-weight", "bold")
+                                .text("Resultaten: ");
+
+                            wrapText(text, 120, projectData.resultaten);
+
+                        })
+                        .catch(function(error) {
+                            console.error("Error loading data:", error);
+                        });
+                });
+            });
         })
         .catch(function(error) {
             console.error("Error loading data:", error);
@@ -181,17 +392,22 @@ function cogChart(
         circleGroup.selectAll("*").remove();
         const circleRadius = 20;
         const circleSpacing = 10;
+
+        const groupSize = 5; // Set the size of each group
+        const colors = ["blue", "lightblue"];
         const circles = circleGroup
             .selectAll("circle")
             .data(d3.range(data))
             .enter()
             .append("circle")
-            .attr("cx", xValue)
+            .attr("cx", (d, i) => Number(xValue) + (i % 2 === 0 ? 0 : 20)) // Add the offset for every other circle
             .attr("cy", (d, i) => yValue + i * (circleRadius * 2 + circleSpacing))
             .attr("r", circleRadius)
-            .style("fill", "blue");
+            .style("fill", (d, i) => colors[Math.floor(i / groupSize) % colors.length]);
     });
 }
+
+
 
 const circlenav1 = document.getElementById("circlenav1");
 const circlenav2 = document.getElementById("circlenav2");
@@ -213,6 +429,7 @@ const trianglelist1 = document.getElementById("trianglelist1");
 const trianglelist2 = document.getElementById("trianglelist2");
 const triangleback = document.getElementById("triangleback");
 const close1 = document.getElementById("close1");
+const close2 = document.getElementById("close2");
 const homeButtons = Array.from(document.getElementsByClassName("home"));
 const rogermain = document.getElementById("rogercirclemain");
 const rogerol1 = document.getElementById("rogercircleol1");
@@ -220,9 +437,7 @@ const rogerol2 = document.getElementById("rogercircleol2");
 const marcelmain = document.getElementById("marcelcirclemain");
 const marcelol1 = document.getElementById("marcelcircleol1");
 const marcelol2 = document.getElementById("marcelcircleol2");
-const geenonderzoekermain = document.getElementById(
-    "geenonderzoekercirclemain"
-);
+const geenonderzoekermain = document.getElementById("geenonderzoekercirclemain");
 const geenonderzoekerol1 = document.getElementById("geenonderzoekercircleol1");
 const geenonderzoekerol2 = document.getElementById("geenonderzoekercircleol2");
 
@@ -280,6 +495,10 @@ homeButtons.forEach((homebutton) => {
         overlay4.style.display = "none";
     });
 });
+
+
+
+
 geenonderzoekermain.addEventListener("click", () => {
     onderzoekerfilter = 0;
     cogChart(
@@ -615,7 +834,7 @@ circlenav2.addEventListener("click", () => {
         "stage",
         0,
         onderzoekerfilter,
-        quareGroup2,
+        squareGroup2,
         sxValue2,
         syValue2
     );
@@ -639,6 +858,7 @@ circlenav2.addEventListener("click", () => {
     );
     overlay1.style.display = "block";
 });
+
 circlenav3.addEventListener("click", () => {
     onderzoekslijnfilter = "Verantwoorde AI";
     cogChart(
@@ -685,7 +905,7 @@ circlelist1.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -695,7 +915,7 @@ circlelist2.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -799,7 +1019,7 @@ squarelist1.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -809,7 +1029,7 @@ squarelist2.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -824,7 +1044,7 @@ trianglelist1.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -834,7 +1054,7 @@ trianglelist2.addEventListener("click", () => {
         onderzoekslijnfilter,
         onderwijsfilter,
         afgerondfilter,
-        onderzoekerfilter
+        onderzoekerfilter, overlay4
     );
     overlay3.style.display = "block";
 });
@@ -846,4 +1066,10 @@ triangleback.addEventListener("click", () => {
 close1.addEventListener("click", () => {
     afgerondfilter = "";
     overlay3.style.display = "none";
+});
+
+
+close2.addEventListener("click", () => {
+    afgerondfilter = "";
+    overlay4.style.display = "none";
 });
