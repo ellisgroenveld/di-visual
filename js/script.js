@@ -375,41 +375,44 @@ function contentGrid(
 }
 
 function cogChart(
-    onderzoekslijnfilter,
-    onderwijsfilter,
-    afgerondfilter,
-    onderzoekerfilter,
-    circleGroup,
-    xValue,
-    yValue
+  onderzoekslijnfilter,
+  onderwijsfilter,
+  afgerondfilter,
+  onderzoekerfilter,
+  circleGroup,
+  xValue,
+  yValue
 ) {
-    dataRetrieveFunction(
-        onderzoekslijnfilter,
-        onderwijsfilter,
-        afgerondfilter,
-        onderzoekerfilter
-    ).then((filteredData) => {
-        const data = filteredData.length; // Get the number of entries in filteredData
-        circleGroup.selectAll("*").remove();
-        const circleRadius = 20;
-        const circleSpacing = 10;
+  dataRetrieveFunction(
+      onderzoekslijnfilter,
+      onderwijsfilter,
+      afgerondfilter,
+      onderzoekerfilter
+  ).then((filteredData) => {
+      const data = filteredData.length; // Get the number of entries in filteredData
+      circleGroup.selectAll("*").remove();
+      const circleRadius = 20;
+      const circleSpacing = -25;
 
-        const groupSize = 5; // Set the size of each group
-        const colors = ["blue", "lightblue"];
-        const circles = circleGroup
-            .selectAll("circle")
-            .data(d3.range(data))
-            .enter()
-            .append("circle")
-            .attr("cx", (d, i) => Number(xValue) + (i % 2 === 0 ? 0 : 20)) // Add the offset for every other circle
-            .attr("cy", (d, i) => yValue + i * (circleRadius * 2 + circleSpacing))
-            .attr("r", circleRadius)
-            .style(
-                "fill",
-                (d, i) => colors[Math.floor(i / groupSize) % colors.length]
-            );
-    });
+      const groupSize = 5; // Set the size of each group
+      const svgImageWidth = 60; // Adjust the width of the SVG image
+      const svgImageHeight = 40; // Adjust the height of the SVG image
+
+      const images = circleGroup
+          .selectAll("image")
+          .data(d3.range(data))
+          .enter()
+          .append("image")
+          .attr("x", (d, i) => Number(xValue) + (i % 2 === 0 ? 0 : 10)) // Add the offset for every other image
+          .attr("y", (d, i) => yValue - (i * (svgImageHeight + circleSpacing))) // Adjust the y position to stack above
+          .attr("width", svgImageWidth)
+          .attr("height", svgImageHeight)
+          .attr("xlink:href", (d, i) => (Math.floor(i / groupSize) % 2 === 0 ? "../img/Cog1.svg" : "../img/Cog1Dark.svg"))
+  });
 }
+
+
+
 
 const circlenav1 = document.getElementById("circlenav1");
 const circlenav2 = document.getElementById("circlenav2");

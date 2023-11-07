@@ -10,13 +10,15 @@
 <body>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <div class="main-screen" id="main-screen">
-        <svg id="main-svg" width="1900" height="1000">
+        <svg id="main-svg" width="1900" height="1200">
             <!-- Hier is weergave niveau 1 -->
+            <image  x="400" y="300" width="1000" xlink:href="/img/flooroutside.svg" />
             <circle id="circlenav1" class="circle" cx="150" cy="150" r="50" fill="blue" />
             <circle id="circlenav2" class="circle" cx="300" cy="150" r="50" fill="blue" />
             <circle id="circlenav3" class="circle" cx="450" cy="150" r="50" fill="blue" />
-            <circle id="circlelist1" class="circle" cx="600" cy="150" r="50" fill="green" />
-            <circle id="circlelist2" class="circle" cx="750" cy="150" r="50" fill="green" />
+            <image class="circle" x="560" y="140" width="70" xlink:href="/img/Cog2.svg" />
+            <image id="circlelist1" class="circle" x="600" y="150" width="100" xlink:href="/img/Cog1.svg" />
+            <image id="circlelist2" class="circle" x="750" y="150" width="100" xlink:href="/img/finished3d.svg" />
             <circle id="geenonderzoekercirclemain" class="circle" cx="1200" cy="150" r="50" fill="black" />
             <circle id="marcelcirclemain" class="circle" cx="1200" cy="450" r="50" fill="white" />
             <circle id="rogercirclemain" class="circle" cx="1200" cy="300" r="50" fill="white" />
@@ -24,8 +26,9 @@
     </div>
     <div class="overlay" id="overlay1">
         <div class="overlay-content" id="overlay-content1">
-            <svg id="overlay-svg1" height="1000" width="1900" viewBox="0 0 1900 1000">
+            <svg id="overlay-svg1" height="1200" width="1900" viewBox="0 0 1900 1000">
                 <!-- Hier is weergave niveau 2 -->
+                <image  x="20%" y="50" width="900" xlink:href="/img/room.svg" />
                 <rect id="squarenav1" class="square" x="50" y="50" width="100" height="100" fill="blue" />
                 <rect id="squarenav2" class="square" x="200" y="50" width="100" height="100" fill="blue" />
                 <rect id="squarenav3" class="square" x="350" y="50" width="100" height="100" fill="blue" />
@@ -42,8 +45,9 @@
     </div>
     <div class="overlay" id="overlay2">
         <div class="overlay-content" id="overlay-content2">
-            <svg id="overlay-svg2" height="1000" width="1900" viewBox="0 0 1900 1000">>
+            <svg id="overlay-svg2" height="1200" width="1900" viewBox="0 0 1900 1000">>
                 <!-- Hier is weergave niveau 3 -->
+                <image  x="20%" y="50" width="900" xlink:href="/img/room.svg" />
                 <polygon id="trianglelist1" class="triangle" points="0,150 50,50 100,150" fill="green" />
                 <polygon id="trianglelist2" class="triangle" points="150,150 200,50 250,150" fill="green" />
                 <polygon id="triangleback" class="triangle" points="300,150 350,50 400,150" fill="red" />
