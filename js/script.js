@@ -375,40 +375,40 @@ function contentGrid(
 }
 
 function cogChart(
-  onderzoekslijnfilter,
-  onderwijsfilter,
-  afgerondfilter,
-  onderzoekerfilter,
-  circleGroup,
-  xValue,
-  yValue
+    onderzoekslijnfilter,
+    onderwijsfilter,
+    afgerondfilter,
+    onderzoekerfilter,
+    circleGroup,
+    xValue,
+    yValue
 ) {
-  dataRetrieveFunction(
-      onderzoekslijnfilter,
-      onderwijsfilter,
-      afgerondfilter,
-      onderzoekerfilter
-  ).then((filteredData) => {
-      const data = filteredData.length; // Get the number of entries in filteredData
-      circleGroup.selectAll("*").remove();
-      const circleRadius = 20;
-      const circleSpacing = -25;
+    dataRetrieveFunction(
+        onderzoekslijnfilter,
+        onderwijsfilter,
+        afgerondfilter,
+        onderzoekerfilter
+    ).then((filteredData) => {
+        const data = filteredData.length; // Get the number of entries in filteredData
+        circleGroup.selectAll("*").remove();
+        const circleRadius = 20;
+        const circleSpacing = -25;
 
-      const groupSize = 5; // Set the size of each group
-      const svgImageWidth = 60; // Adjust the width of the SVG image
-      const svgImageHeight = 40; // Adjust the height of the SVG image
+        const groupSize = 5; // Set the size of each group
+        const svgImageWidth = 60; // Adjust the width of the SVG image
+        const svgImageHeight = 40; // Adjust the height of the SVG image
 
-      const images = circleGroup
-          .selectAll("image")
-          .data(d3.range(data))
-          .enter()
-          .append("image")
-          .attr("x", (d, i) => Number(xValue) + (i % 2 === 0 ? 0 : 10)) // Add the offset for every other image
-          .attr("y", (d, i) => yValue - (i * (svgImageHeight + circleSpacing))) // Adjust the y position to stack above
-          .attr("width", svgImageWidth)
-          .attr("height", svgImageHeight)
-          .attr("xlink:href", (d, i) => (Math.floor(i / groupSize) % 2 === 0 ? "../img/Cog1.svg" : "../img/Cog1Dark.svg"))
-  });
+        const images = circleGroup
+            .selectAll("image")
+            .data(d3.range(data))
+            .enter()
+            .append("image")
+            .attr("x", (d, i) => Number(xValue) + (i % 2 === 0 ? 0 : 10)) // Add the offset for every other image
+            .attr("y", (d, i) => yValue - (i * (svgImageHeight + circleSpacing))) // Adjust the y position to stack above
+            .attr("width", svgImageWidth)
+            .attr("height", svgImageHeight)
+            .attr("xlink:href", (d, i) => (Math.floor(i / groupSize) % 2 === 0 ? "../img/Cog1.svg" : "../img/Cog1Dark.svg"))
+    });
 }
 
 
@@ -455,24 +455,24 @@ let onderzoekerfilter = 0;
 
 const circleRadius = 20;
 const circleSpacing = 10;
-const cxValue1 = d3.select("#circlenav1").attr("cx");
-const cyValue1 = Number(d3.select("#circlenav1").attr("cy")) + 100;
-const cxValue2 = d3.select("#circlenav2").attr("cx");
-const cyValue2 = Number(d3.select("#circlenav2").attr("cy")) + 100;
-const cxValue3 = d3.select("#circlenav3").attr("cx");
-const cyValue3 = Number(d3.select("#circlenav3").attr("cy")) + 100;
-const sxValue1 = d3.select("#squarenav1").attr("x");
-const syValue1 = Number(d3.select("#squarenav1").attr("y")) + 100;
-const sxValue2 = d3.select("#squarenav2").attr("x");
-const syValue2 = Number(d3.select("#squarenav2").attr("y")) + 100;
-const sxValue3 = d3.select("#squarenav3").attr("x");
-const syValue3 = Number(d3.select("#squarenav3").attr("y")) + 100;
-const sxValue4 = d3.select("#squarenav4").attr("x");
-const syValue4 = Number(d3.select("#squarenav4").attr("y")) + 100;
-const txValue1 = d3.select("#trianglelist1").attr("x");
-const tyValue1 = Number(d3.select("#trianglelist1").attr("y")) + 100;
-const txValue2 = d3.select("#trianglelist2").attr("x");
-const tyValue2 = Number(d3.select("#trianglelist2").attr("y")) + 100;
+const cxValue1 = 600;
+const cyValue1 = 425;
+const cxValue2 = 800;
+const cyValue2 = 400;
+const cxValue3 = 1100;
+const cyValue3 = 425;
+const sxValue1 = 450;
+const syValue1 = 350;
+const sxValue2 = 650;
+const syValue2 = 250;
+const sxValue3 = 950;
+const syValue3 = 250;
+const sxValue4 = 1150;
+const syValue4 = 350;
+const txValue1 = 400;
+const tyValue1 = 600;
+const txValue2 = 600;
+const tyValue2 = 500;
 
 const mainsvg = d3.select("#main-svg");
 const overlay1svg = d3.select("#overlay-svg1");
