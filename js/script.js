@@ -9,7 +9,7 @@ function dataRetrieveFunction(
     let filteredData; // Declare filteredData as a let variable
 
     let returndata = d3
-        .csv("../data/mergeddata.csv")
+        .csv("data/mergeddata.csv")
         .then(function(data) {
             filteredData = data.filter((d) => {
                 if (afgerondfilter === "yes") {
@@ -116,7 +116,7 @@ function createProjectDetails(projectData, index) {
     svg
         .append("image")
         .attr("width", 150)
-        .attr("href", "../img/placeholder.jpg")
+        .attr("href", "img/placeholder.jpg")
         .attr("x", 200)
         .attr("y", 100);
 
@@ -200,7 +200,7 @@ function contentGrid(
                     const usedid = Number(detailbutton.getAttribute("id").slice(1));
                     overlay4.style.display = "block";
 
-                    d3.csv("../data/mergeddata.csv")
+                    d3.csv("data/mergeddata.csv")
                         .then(function(data) {
                             const filteredData = data.filter((d) => Number(d.id) === usedid);
                             let projectData = 0;
@@ -228,7 +228,7 @@ function contentGrid(
                             svg
                                 .append("image")
                                 .attr("width", 450)
-                                .attr("href", "../img/placeholder.jpg")
+                                .attr("href", "img/placeholder.jpg")
                                 .attr("x", 1000)
                                 .attr("y", 50);
 
@@ -407,7 +407,7 @@ function cogChart(
             .attr("y", (d, i) => yValue - (i * (svgImageHeight + circleSpacing))) // Adjust the y position to stack above
             .attr("width", svgImageWidth)
             .attr("height", svgImageHeight)
-            .attr("xlink:href", (d, i) => (Math.floor(i / groupSize) % 2 === 0 ? "../img/Cog1.svg" : "../img/Cog1Dark.svg"))
+            .attr("xlink:href", (d, i) => (Math.floor(i / groupSize) % 2 === 0 ? "img/Cog1.svg" : "img/Cog1Dark.svg"))
     });
 }
 
