@@ -1,0 +1,14 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Draw the wall (background) -->
+  <!-- Draw the left side of the wall -->
+  <polygon points="10,30 10,50 50,70 50,50" fill="#A6A6A6" />
+
+  <!-- Draw the right side of the wall -->
+  <polygon points="50,70 50,50 90,30 90,50" fill="#8E8E8E" />
+
+  <!-- Draw the front rectangle face (isometric rectangle) -->
+  <polygon points="50,10 90,30 50,50 10,30" fill="#6AA84F" />
+
+  <!-- Draw the top trapezoidal face -->
+  <polygon points="10,30 50,10 90,30 50,50" fill="#5C922F" />
+</svg>

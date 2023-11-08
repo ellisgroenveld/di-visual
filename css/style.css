@@ -1,9 +1,19 @@
 /* Existing styles */
 
+body {
+    overflow: hidden;
+}
+
 .main-screen {
     position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
     background-image: url("../img/background.png");
-    background-position: 0 0;
 }
 
 .overlay {
@@ -14,8 +24,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    overflow: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     background-image: url("../img/background.png");
 }
 
@@ -64,10 +73,6 @@
     animation: pulse 2s infinite;
 }
 
-.main-screen {
-    position: relative;
-}
-
 .circles-container {
     position: absolute;
     top: 0;
@@ -78,9 +83,17 @@
 }
 
 .circle {
-    width: 40px;
-    height: 40px;
     margin: 5px;
     background-color: blue;
     border-radius: 50%;
+}
+
+.ellipsis-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#overlay3 {
+    overflow-y: auto;
 }
