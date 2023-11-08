@@ -9,7 +9,7 @@ function dataRetrieveFunction(
     let filteredData; // Declare filteredData as a let variable
 
     let returndata = d3
-        .csv("/../data/mergeddata.csv")
+        .csv("../data/mergeddata.csv")
         .then(function(data) {
             filteredData = data.filter((d) => {
                 if (afgerondfilter === "yes") {
@@ -200,7 +200,7 @@ function contentGrid(
                     const usedid = Number(detailbutton.getAttribute("id").slice(1));
                     overlay4.style.display = "block";
 
-                    d3.csv("/../data/mergeddata.csv")
+                    d3.csv("../data/mergeddata.csv")
                         .then(function(data) {
                             const filteredData = data.filter((d) => Number(d.id) === usedid);
                             let projectData = 0;
