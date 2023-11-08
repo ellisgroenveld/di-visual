@@ -184,6 +184,7 @@ function contentGrid(
             const svg = d3.select("#overlay-svg3");
             svg.selectAll("g").remove();
             let maxy = 0;
+            let returny = 0;
             data.forEach(function(projectData, index) {
                 returny = createProjectDetails(projectData, index);
             });
