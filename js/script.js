@@ -1043,7 +1043,7 @@ squarelist2.addEventListener("click", () => {
     overlay3.style.display = "block";
 });
 squareback.addEventListener("click", () => {
-    onderzoekslijnfilter = "";
+    onderzoekslijnfilter = 0;
     overlay1.style.display = "none";
 });
 
@@ -1070,6 +1070,7 @@ trianglelist2.addEventListener("click", () => {
     overlay3.style.display = "block";
 });
 triangleback.addEventListener("click", () => {
+    onderwijsfilter = 0;
     overlay2.style.display = "none";
     overlay1.style.display = "block";
 });
