@@ -97,3 +97,11 @@ body {
 #overlay3 {
     overflow-y: auto;
 }
+
+.home {
+    cursor: pointer;
+}
+
+.noclass {
+    cursor: pointer;
+}
