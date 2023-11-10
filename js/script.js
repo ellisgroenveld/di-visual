@@ -449,6 +449,11 @@ const geenonderzoekermain = document.getElementById(
 const geenonderzoekerol1 = document.getElementById("geenonderzoekercircleol1");
 const geenonderzoekerol2 = document.getElementById("geenonderzoekercircleol2");
 
+var textol1lijn = d3.select("#ol1lijn");
+var textol2lijn = d3.select("#ol2lijn");
+var textol2onderwijs = d3.select("#ol2onderwijs");
+
+
 let onderzoekslijnfilter = 0;
 let onderwijsfilter = 0;
 let afgerondfilter = 0;
@@ -463,13 +468,13 @@ const cyValue2 = 400;
 const cxValue3 = 1100;
 const cyValue3 = 425;
 const sxValue1 = 450;
-const syValue1 = 350;
+const syValue1 = 300;
 const sxValue2 = 650;
-const syValue2 = 250;
+const syValue2 = 200;
 const sxValue3 = 950;
-const syValue3 = 250;
+const syValue3 = 200;
 const sxValue4 = 1150;
-const syValue4 = 350;
+const syValue4 = 300;
 const txValue1 = 400;
 const tyValue1 = 600;
 const txValue2 = 600;
@@ -821,6 +826,7 @@ circlenav1.addEventListener("click", () => {
         sxValue4,
         syValue4
     );
+    textol1lijn.text(onderzoekslijnfilter);
     overlay1.style.display = "block";
 });
 circlenav2.addEventListener("click", () => {
@@ -861,6 +867,7 @@ circlenav2.addEventListener("click", () => {
         sxValue4,
         syValue4
     );
+    textol1lijn.text(onderzoekslijnfilter);
     overlay1.style.display = "block";
 });
 
@@ -902,6 +909,7 @@ circlenav3.addEventListener("click", () => {
         sxValue4,
         syValue4
     );
+    textol1lijn.text(onderzoekslijnfilter);
     overlay1.style.display = "block";
 });
 circlelist1.addEventListener("click", () => {
@@ -947,6 +955,9 @@ squarenav1.addEventListener("click", () => {
         txValue2,
         tyValue2
     );
+    textol2lijn.text(onderzoekslijnfilter);
+    textol2onderwijs.text(onderwijsfilter);
+
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
@@ -970,6 +981,8 @@ squarenav2.addEventListener("click", () => {
         txValue2,
         tyValue2
     );
+    textol2lijn.text(onderzoekslijnfilter);
+    textol2onderwijs.text(onderwijsfilter);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
@@ -993,6 +1006,8 @@ squarenav3.addEventListener("click", () => {
         txValue2,
         tyValue2
     );
+    textol2lijn.text(onderzoekslijnfilter);
+    textol2onderwijs.text(onderwijsfilter);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
@@ -1016,6 +1031,8 @@ squarenav4.addEventListener("click", () => {
         txValue2,
         tyValue2
     );
+    textol2lijn.text(onderzoekslijnfilter);
+    textol2onderwijs.text(onderwijsfilter);
     overlay2.style.display = "block";
     overlay1.style.display = "none";
 });
